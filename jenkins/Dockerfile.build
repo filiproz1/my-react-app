@@ -1,4 +1,5 @@
 FROM node:lts-bullseye-slim
+RUN npm cache clean --force
 COPY ./ ./app
 WORKDIR ./app
 RUN ls -la
