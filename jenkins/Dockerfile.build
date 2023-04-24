@@ -1,6 +1,6 @@
 FROM node:lts-bullseye-slim
 COPY ./ ./app
 WORKDIR ./app
-CMD ["ls", "-la"]
+RUN ls -la
 RUN npm install
 RUN npm run build
