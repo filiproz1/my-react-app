@@ -1,0 +1,2 @@
+FROM my-react-app:latest
+RUN npm test

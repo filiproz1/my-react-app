@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    }
+    stages {
+        stage('Build') { 
+            agent {
+                Dockerfile {
+                    filename 'jenkins/Dockerfile.build'
+                }
+            }
+            steps {
+                sh 'echo "Building..."'
+            }
+        }
+
+        stage('Test') { 
+            agent {
+                Dockerfile {
+                    filename 'jenkins/Dockerfile.test'
+                }
+            }
+            steps {
+                sh 'echo "Testing..."'
+            }
+        }
+
+        stage('Deploy') { 
+            agent {
+                Dockerfile {
+                    filename 'jenkins/Dockerfile.deploy'
+                }
+            }
+
+            steps {
+                sh 'echo "Deploying..."'
+            }
+        }
+    }
