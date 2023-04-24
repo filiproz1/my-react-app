@@ -1,22 +1,28 @@
-// create a jenkinsfile to build a react app from github repo
-
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:lts-bullseye-slim' 
+            args '-p 3000:3000' 
+        }
+    }
     stages {
-        stage('Build') {
+        stage('Build') { 
             steps {
-                sh 'npm install'
-                sh 'npm run build'
+                sh 'npm install' 
             }
         }
-        stage('Test') {
+
+        stage('Test') { 
             steps {
-                sh 'npm run test'
+                sh 'npm test' 
             }
         }
-        stage('Deploy') {
+
+        stage('Deploy') { 
             steps {
-                sh 'npm run deploy'
+                sh 'npm run build' 
+                sh 'docker build -t my-react-app .' 
+                sh 'docker run -d -p 3000:3000 my-react-app' 
             }
         }
     }
