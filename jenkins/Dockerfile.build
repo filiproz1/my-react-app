@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16
 RUN apt-get update && apt-get install -y git
 RUN git clone https://github.com/filiproz1/my-react-app.git
 WORKDIR /my-react-app
