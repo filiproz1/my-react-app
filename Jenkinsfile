@@ -17,13 +17,5 @@ pipeline {
                 sh 'npm test' 
             }
         }
-
-        stage('Deploy') { 
-            steps {
-                sh 'npm run build' 
-                sh 'docker build -t my-react-app .' 
-                sh 'docker run -d -p 3000:3000 my-react-app' 
-            }
         }
     }
-}
