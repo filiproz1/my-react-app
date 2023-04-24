@@ -2,10 +2,9 @@ pipeline {
     agent any
     stages {
         stage('Build') { 
-            agent {
-                dockerfile {
-                    filename 'jenkins/Dockerfile.build'
-                }
+            agent any
+            steps {
+                docker.build("my-react-app:latest", "./jenkins/Dockerfile.build")
             }
         }
 
