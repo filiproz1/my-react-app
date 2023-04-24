@@ -4,9 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'ls -la ./jenkins'
-                script {
-                    docker.build("my-react-app:latest", "./jenkins/Dockerfile.build")
-                }
+                sh 'docker build -t my-react-app:latest - < ./jenkins/Dockerfile.build'
             }
         }
         stage('Test') { 
