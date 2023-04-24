@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') { 
             agent {
-                Dockerfile {
+                dockerfile {
                     filename 'jenkins/Dockerfile.build'
                 }
             }
@@ -14,7 +14,7 @@ pipeline {
 
         stage('Test') { 
             agent {
-                Dockerfile {
+                dockerfile {
                     filename 'jenkins/Dockerfile.test'
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Deploy') { 
             agent {
-                Dockerfile {
+                dockerfile {
                     filename 'jenkins/Dockerfile.deploy'
                 }
             }
