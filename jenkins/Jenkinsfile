@@ -3,12 +3,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    def app = docker.build("my-react-app:latest", "./jenkins/Dockerfile")
-                }
+                sh 'ls -la'
             }
         }
-
         stage('Test') { 
             agent {
                 docker {
