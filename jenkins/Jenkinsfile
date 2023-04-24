@@ -1,10 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage('Build') { 
-            agent any
+        stage('Build') {
             steps {
-                docker.build("my-react-app:latest", "./jenkins/Dockerfile.build")
+                script {
+                    def app = docker.build("my-react-app:latest", "./jenkins/Dockerfile")
+                }
             }
         }
 
