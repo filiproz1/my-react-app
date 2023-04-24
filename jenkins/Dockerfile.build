@@ -1,6 +1,6 @@
 FROM node:lts-bullseye-slim
 RUN npm cache clean --force
-COPY ./ ./app
+COPY . ./app
 WORKDIR ./app
 RUN ls -la
 RUN npm install
