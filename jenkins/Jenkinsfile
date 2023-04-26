@@ -3,31 +3,52 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'ls -la .'
-                sh 'ls -la ./jenkins'
-                sh 'docker build -t my-react-app:latest - < ./jenkins/Dockerfile.build'
+                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.build'
+            }
+            post {
+                always {
+                    archiveArtifacts(artifacts: 'log_*.txt', fingerprint: true, followSymlinks: false)
+                }
+                success {
+                    echo 'Build success'
+                }
+                failure {
+                    echo 'Build failed'
+                } 
             }
         }
         stage('Test') { 
-            agent {
-                docker {
-                    image 'my-react-app:latest'
-                }
-            }
             steps {
-                sh 'npm run test'
+                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.test'
+            }
+            post {
+                always {
+                    archiveArtifacts(artifacts: 'log_*.txt', fingerprint: true, followSymlinks: false)
+                }
+                success {
+                    echo 'Test success'
+                }
+                failure {
+                    echo 'Test failed'
+                } 
             }
         }
 
         stage('Deploy') { 
-            agent {
-                docker {
-                    image 'my-react-app:latest'
-                }
-            }
             steps {
-                sh 'npm run build'
-                sh 'npx serve build'
+                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.deploy'
+            }
+            post {
+                always {
+                    archiveArtifacts(artifacts: 'log_*.txt', fingerprint: true, followSymlinks: false)
+                }
+                success {
+                    sh "docker save my-react-app -o my-react-app.tar"
+                    echo 'Deploy success'
+                }
+                failure {
+                    echo 'Deploy failed'
+                } 
             }
         }
     }
