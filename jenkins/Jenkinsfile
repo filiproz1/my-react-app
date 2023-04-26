@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.build'
+                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.build > log_build.txt'
             }
             post {
                 always {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Test') { 
             steps {
-                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.test'
+                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.test > log_test.txt'
             }
             post {
                 always {
@@ -36,7 +36,7 @@ pipeline {
 
         stage('Deploy') { 
             steps {
-                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.deploy'
+                sh 'docker build -t my-react-app - < ./jenkins/Dockerfile.deploy > log_deploy.txt'
             }
             post {
                 always {
