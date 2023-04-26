@@ -44,6 +44,7 @@ pipeline {
                 }
                 success {
                     sh "docker save my-react-app -o my-react-app.tar"
+                    archiveArtifacts(artifacts: 'my-react-app.tar', fingerprint: true, followSymlinks: false)
                     echo 'Deploy success'
                 }
                 failure {
