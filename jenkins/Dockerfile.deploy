@@ -1,4 +1,15 @@
 FROM my-react-app:latest
+# cleanup
+RUN rm -rf              \
+    jenkins/            \
+    node_modules/       \
+    package.json        \
+    package-lock.json   \
+    public/             \
+    README.md           \
+    src/
+# install serve
+RUN npm install serve -g
 ENV NODE_ENV production
 EXPOSE 3000
-CMD ["npx", "serve", "build"]
+CMD ["npx", "serve", "-s", "build"]
